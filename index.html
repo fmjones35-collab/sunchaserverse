@@ -7,7 +7,6 @@
 <title>SunchaserVerse</title>
 
 <style>
-
 * {
   box-sizing: border-box;
 }
@@ -26,18 +25,14 @@ html, body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-
   background:
-    radial-gradient(
-      circle at 50% 45%,
+    radial-gradient(circle at 50% 45%,
       #101936 0%,
       #080d20 45%,
-      #03050d 100%
-    );
+      #03050d 100%);
 }
 
-
-/* ---------- THE LIGHT ---------- */
+/* LIGHT */
 
 #sunGlow {
   position: absolute;
@@ -48,13 +43,14 @@ html, body {
   transform: translate(-50%, -50%);
   border-radius: 50%;
 
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255,188,72,.36) 0%,
-    rgba(245,157,46,.18) 28%,
-    rgba(230,184,63,.07) 50%,
-    rgba(230,184,63,0) 72%
-  );
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255,188,72,.36) 0%,
+      rgba(245,157,46,.18) 28%,
+      rgba(230,184,63,.07) 50%,
+      rgba(230,184,63,0) 72%
+    );
 
   filter: blur(30px);
   pointer-events: none;
@@ -70,14 +66,15 @@ html, body {
   transform: translate(-50%, -50%);
   border-radius: 50%;
 
-  background: radial-gradient(
-    circle,
-    rgba(255,255,245,1) 0%,
-    rgba(255,244,188,.98) 15%,
-    rgba(255,196,76,.78) 35%,
-    rgba(255,155,45,.32) 58%,
-    rgba(255,155,45,0) 78%
-  );
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,245,1) 0%,
+      rgba(255,244,188,.98) 15%,
+      rgba(255,196,76,.78) 35%,
+      rgba(255,155,45,.32) 58%,
+      rgba(255,155,45,0) 78%
+    );
 
   filter: blur(8px);
 
@@ -97,41 +94,84 @@ html, body {
   top: 25%;
   transform: translate(-50%, -50%);
 
-  background: linear-gradient(
-    90deg,
-    rgba(255,184,65,0),
-    rgba(255,205,100,.16),
-    rgba(255,245,205,.62),
-    rgba(255,205,100,.16),
-    rgba(255,184,65,0)
-  );
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,184,65,0),
+      rgba(255,205,100,.16),
+      rgba(255,245,205,.62),
+      rgba(255,205,100,.16),
+      rgba(255,184,65,0)
+    );
 
   filter: blur(9px);
   pointer-events: none;
   z-index: 0;
 }
 
-
-/* ---------- GLOBE ---------- */
+/* GLOBE */
 
 #globeViz {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   z-index: 1;
 }
 
-canvas {
-  cursor: grab;
+/* REAL HTML DESTINATION */
+
+.destination {
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+
+  color: #F3C94F;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 2px;
+
+  padding: 9px 12px;
+  border-radius: 20px;
+
+  background: rgba(5,8,24,.72);
+  border: 1px solid rgba(243,201,79,.55);
+
+  text-shadow:
+    0 0 7px rgba(255,225,125,.9);
+
+  box-shadow:
+    0 0 12px rgba(243,201,79,.22);
+
+  transition:
+    color .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
 }
 
-canvas:active {
-  cursor: grabbing;
+.destination:hover {
+  color: #FFF1A8;
+
+  border-color: #FFF1A8;
+
+  background: rgba(20,17,36,.90);
+
+  box-shadow:
+    0 0 10px rgba(255,241,168,.55),
+    0 0 24px rgba(243,201,79,.35);
 }
 
+.destination.selected {
+  color: #FFF1A8;
 
-/* ---------- DESTINATION CARD ---------- */
+  border-color: #FFF1A8;
+
+  box-shadow:
+    0 0 12px rgba(255,241,168,.70),
+    0 0 30px rgba(243,201,79,.42);
+}
+
+/* CARD */
 
 #preview {
   position: absolute;
@@ -144,11 +184,12 @@ canvas:active {
   border: 1px solid rgba(247,216,107,.55);
   border-radius: 14px;
 
-  background: linear-gradient(
-    135deg,
-    rgba(9,16,40,.95),
-    rgba(28,18,48,.94)
-  );
+  background:
+    linear-gradient(
+      135deg,
+      rgba(9,16,40,.97),
+      rgba(28,18,48,.96)
+    );
 
   box-shadow:
     0 0 28px rgba(243,201,79,.20);
@@ -157,20 +198,24 @@ canvas:active {
 
   opacity: 0;
   visibility: hidden;
+
   transform: translateY(12px);
 
   transition:
-    opacity .35s ease,
-    transform .35s ease,
-    visibility .35s ease;
+    opacity .3s ease,
+    transform .3s ease,
+    visibility .3s ease;
 
-  z-index: 5;
+  pointer-events: none;
+
+  z-index: 10;
 }
 
 #preview.show {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 #preview .eyebrow {
@@ -201,8 +246,7 @@ canvas:active {
   font-weight: bold;
 }
 
-
-/* ---------- MOBILE ---------- */
+/* MOBILE */
 
 @media (max-width: 700px) {
 
@@ -218,12 +262,16 @@ canvas:active {
   #preview.show {
     transform: translate(-50%, 0);
   }
+
+  .destination {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
 }
 
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
-
 </head>
 
 <body>
@@ -258,33 +306,24 @@ canvas:active {
 
 </div>
 
-
 <script>
 
 const preview =
   document.getElementById('preview');
 
 
-const words = {
-
-  lat: 44.98,
-  lng: -93.27,
-
-  name: 'WORDS',
-
-  color: '#F3C94F',
-
-  size: 1.45,
-
-  radius: 0.34
-};
+const destinations = [
+  {
+    lat: 44.98,
+    lng: -93.27,
+    name: 'WORDS'
+  }
+];
 
 
-const destinations = [words];
-
+/* CREATE GLOBE */
 
 const world = Globe()
-
 (document.getElementById('globeViz'))
 
 .globeImageUrl(
@@ -303,120 +342,112 @@ const world = Globe()
 
 .atmosphereAltitude(
   0.13
-)
+);
 
 
-/* ---------- DESTINATION NODE ---------- */
+/* =====================================
+   HTML DESTINATIONS
+   ===================================== */
 
-.pointsData(destinations)
+world
 
-.pointLat('lat')
+.htmlElementsData(destinations)
 
-.pointLng('lng')
+.htmlLat('lat')
 
-.pointColor(
-  d => d.color
-)
+.htmlLng('lng')
 
-.pointAltitude(
-  0.035
-)
+.htmlAltitude(0.055)
 
-.pointRadius(
-  d => d.radius
-)
+.htmlElement(destination => {
 
+  const button =
+    document.createElement('div');
 
-/* ---------- WORDS LABEL ---------- */
+  button.className =
+    'destination';
 
-.labelsData(destinations)
+  button.textContent =
+    destination.name;
 
-.labelLat('lat')
-
-.labelLng('lng')
-
-.labelText('name')
-
-.labelColor(
-  d => d.color
-)
-
-.labelSize(
-  d => d.size
-)
-
-.labelDotRadius(
-  d => d.radius
-)
-
-.labelAltitude(
-  0.055
-)
-
-.labelResolution(
-  3
-)
-
-
-/* ---------- HOVER = GLOW ONLY ---------- */
-
-.onLabelHover(destination => {
-
-  if (destination) {
-
-    words.color = '#FFF1A8';
-
-    document.body.style.cursor = 'pointer';
-
-  } else {
-
-    words.color = '#F3C94F';
-
-    document.body.style.cursor = 'default';
-
-  }
-
-  world
-    .labelsData([...destinations])
-    .pointsData([...destinations]);
-
-})
-
-
-/* ---------- CLICK = SELECT DESTINATION ---------- */
-
-.onLabelClick(destination => {
-
-  if (!destination) return;
 
   /*
-    WORDS IS NOW SELECTED.
+    HOVER:
+    VISUAL ONLY.
 
-    The card opens and remains open.
-    Mouse movement does NOT control it.
+    It does NOT open or close the card.
   */
 
-  preview.classList.add('show');
+  button.addEventListener(
+    'mouseenter',
+    () => {
 
-  world.controls().autoRotateSpeed = 0.05;
+      world.controls()
+        .autoRotateSpeed = 0.05;
 
-})
+    }
+  );
 
 
-/* ---------- GOLD NODE ALSO WORKS ---------- */
+  button.addEventListener(
+    'mouseleave',
+    () => {
 
-.onPointClick(destination => {
+      /*
+        If destination has NOT been selected,
+        resume normal rotation.
 
-  if (!destination) return;
+        If selected, keep the world slow.
+      */
 
-  preview.classList.add('show');
+      if (!button.classList.contains('selected')) {
 
-  world.controls().autoRotateSpeed = 0.05;
+        world.controls()
+          .autoRotateSpeed = 0.45;
+
+      }
+
+    }
+  );
+
+
+  /*
+    CLICK:
+    THIS is what opens the card.
+
+    Once clicked, card visibility is no
+    longer connected to hover.
+  */
+
+  button.addEventListener(
+    'click',
+    event => {
+
+      event.stopPropagation();
+
+      button.classList.add(
+        'selected'
+      );
+
+      preview.classList.add(
+        'show'
+      );
+
+      world.controls()
+        .autoRotateSpeed = 0.05;
+
+    }
+  );
+
+
+  return button;
 
 });
 
 
-/* ---------- OPENING VIEW ---------- */
+/* =====================================
+   OPENING VIEW
+   ===================================== */
 
 world.pointOfView(
 
@@ -431,19 +462,27 @@ world.pointOfView(
 );
 
 
-/* ---------- MOVEMENT ---------- */
+/* =====================================
+   MOVEMENT
+   ===================================== */
 
-world.controls().autoRotate = true;
+world.controls()
+  .autoRotate = true;
 
-world.controls().autoRotateSpeed = 0.45;
+world.controls()
+  .autoRotateSpeed = 0.45;
 
-world.controls().enableDamping = true;
+world.controls()
+  .enableDamping = true;
 
-world.controls().dampingFactor = 0.08;
+world.controls()
+  .dampingFactor = 0.08;
 
-world.controls().minDistance = 105;
+world.controls()
+  .minDistance = 105;
 
-world.controls().maxDistance = 400;
+world.controls()
+  .maxDistance = 400;
 
 </script>
 
