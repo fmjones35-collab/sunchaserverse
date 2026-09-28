@@ -1,221 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SunchaserVerse</title>
+<title>SunchaserVerse</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
 
-    html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #050818;
-      font-family: Arial, sans-serif;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    #stage {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #050818;
+  font-family: Arial, sans-serif;
+}
 
-      background:
-        radial-gradient(
-          circle at 50% 45%,
-          #101936 0%,
-          #080d20 45%,
-          #03050d 100%
-        );
-    }
+#stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 
-    /* ---------- THE LIGHT ---------- */
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      #101936 0%,
+      #080d20 45%,
+      #03050d 100%
+    );
+}
 
-    #sunGlow {
-      position: absolute;
-      width: 430px;
-      height: 280px;
-      left: 55%;
-      top: 25%;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
 
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255,188,72,.36) 0%,
-        rgba(245,157,46,.18) 28%,
-        rgba(230,184,63,.07) 50%,
-        rgba(230,184,63,0) 72%
-      );
+/* ---------- THE LIGHT ---------- */
 
-      filter: blur(30px);
-      pointer-events: none;
-      z-index: 0;
-    }
+#sunGlow {
+  position: absolute;
+  width: 430px;
+  height: 280px;
+  left: 55%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
 
-    #sunCore {
-      position: absolute;
-      width: 105px;
-      height: 105px;
-      left: 55%;
-      top: 25%;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255,188,72,.36) 0%,
+    rgba(245,157,46,.18) 28%,
+    rgba(230,184,63,.07) 50%,
+    rgba(230,184,63,0) 72%
+  );
 
-      background: radial-gradient(
-        circle,
-        rgba(255,255,245,1) 0%,
-        rgba(255,244,188,.98) 15%,
-        rgba(255,196,76,.78) 35%,
-        rgba(255,155,45,.32) 58%,
-        rgba(255,155,45,0) 78%
-      );
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: 0;
+}
 
-      filter: blur(8px);
+#sunCore {
+  position: absolute;
+  width: 105px;
+  height: 105px;
+  left: 55%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
 
-      box-shadow:
-        0 0 28px rgba(255,235,165,.60),
-        0 0 65px rgba(255,176,55,.30);
+  background: radial-gradient(
+    circle,
+    rgba(255,255,245,1) 0%,
+    rgba(255,244,188,.98) 15%,
+    rgba(255,196,76,.78) 35%,
+    rgba(255,155,45,.32) 58%,
+    rgba(255,155,45,0) 78%
+  );
 
-      pointer-events: none;
-      z-index: 0;
-    }
+  filter: blur(8px);
 
-    #sunFlare {
-      position: absolute;
-      width: 330px;
-      height: 18px;
-      left: 55%;
-      top: 25%;
-      transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 28px rgba(255,235,165,.60),
+    0 0 65px rgba(255,176,55,.30);
 
-      background: linear-gradient(
-        90deg,
-        rgba(255,184,65,0),
-        rgba(255,205,100,.16),
-        rgba(255,245,205,.62),
-        rgba(255,205,100,.16),
-        rgba(255,184,65,0)
-      );
+  pointer-events: none;
+  z-index: 0;
+}
 
-      filter: blur(9px);
-      pointer-events: none;
-      z-index: 0;
-    }
+#sunFlare {
+  position: absolute;
+  width: 330px;
+  height: 18px;
+  left: 55%;
+  top: 25%;
+  transform: translate(-50%, -50%);
 
-    /* ---------- GLOBE ---------- */
+  background: linear-gradient(
+    90deg,
+    rgba(255,184,65,0),
+    rgba(255,205,100,.16),
+    rgba(255,245,205,.62),
+    rgba(255,205,100,.16),
+    rgba(255,184,65,0)
+  );
 
-    #globeViz {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
+  filter: blur(9px);
+  pointer-events: none;
+  z-index: 0;
+}
 
-    canvas {
-      cursor: grab;
-    }
 
-    canvas:active {
-      cursor: grabbing;
-    }
+/* ---------- GLOBE ---------- */
 
-    /* ---------- DESTINATION CARD ---------- */
+#globeViz {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
 
-    #preview {
-      position: absolute;
-      right: 7%;
-      bottom: 10%;
+canvas {
+  cursor: grab;
+}
 
-      width: 270px;
-      padding: 22px;
+canvas:active {
+  cursor: grabbing;
+}
 
-      border: 1px solid rgba(247,216,107,.55);
-      border-radius: 14px;
 
-      background: linear-gradient(
-        135deg,
-        rgba(9,16,40,.95),
-        rgba(28,18,48,.94)
-      );
+/* ---------- DESTINATION CARD ---------- */
 
-      box-shadow:
-        0 0 28px rgba(243,201,79,.20);
+#preview {
+  position: absolute;
+  right: 7%;
+  bottom: 10%;
 
-      color: white;
+  width: 270px;
+  padding: 22px;
 
-      opacity: 0;
-      transform: translateY(12px);
+  border: 1px solid rgba(247,216,107,.55);
+  border-radius: 14px;
 
-      transition:
-        opacity .35s ease,
-        transform .35s ease;
+  background: linear-gradient(
+    135deg,
+    rgba(9,16,40,.95),
+    rgba(28,18,48,.94)
+  );
 
-      pointer-events: none;
-      z-index: 5;
-    }
+  box-shadow:
+    0 0 28px rgba(243,201,79,.20);
 
-    #preview.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  color: white;
 
-    #preview .eyebrow {
-      color: #F7D86B;
-      font-size: 10px;
-      letter-spacing: 3px;
-      margin-bottom: 8px;
-    }
+  opacity: 0;
+  transform: translateY(12px);
 
-    #preview h2 {
-      margin: 0 0 8px;
-      color: #FFF5CF;
-      font-size: 25px;
-      letter-spacing: 1px;
-    }
+  transition:
+    opacity .35s ease,
+    transform .35s ease;
 
-    #preview p {
-      margin: 0 0 16px;
-      color: #E6E7EF;
-      font-size: 13px;
-      line-height: 1.5;
-    }
+  pointer-events: none;
+  z-index: 5;
+}
 
-    #preview .enter {
-      color: #F7D86B;
-      font-size: 11px;
-      letter-spacing: 2px;
-      font-weight: bold;
-    }
+#preview.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    /* ---------- MOBILE ---------- */
+#preview .eyebrow {
+  color: #F7D86B;
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
 
-    @media (max-width: 700px) {
+#preview h2 {
+  margin: 0 0 8px;
+  color: #FFF5CF;
+  font-size: 25px;
+  letter-spacing: 1px;
+}
 
-      #preview {
-        left: 50%;
-        right: auto;
-        bottom: 5%;
-        width: 86%;
-        max-width: 320px;
-        transform: translate(-50%, 12px);
-      }
+#preview p {
+  margin: 0 0 16px;
+  color: #E6E7EF;
+  font-size: 13px;
+  line-height: 1.5;
+}
 
-      #preview.show {
-        transform: translate(-50%, 0);
-      }
-    }
+#preview .enter {
+  color: #F7D86B;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
 
-  </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+
+  #preview {
+    left: 50%;
+    right: auto;
+    bottom: 5%;
+    width: 86%;
+    max-width: 320px;
+    transform: translate(-50%, 12px);
+  }
+
+  #preview.show {
+    transform: translate(-50%, 0);
+  }
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
+
 </head>
 
 <body>
@@ -250,208 +256,192 @@
 
 </div>
 
+
 <script>
 
-  const preview =
-    document.getElementById('preview');
+const preview =
+  document.getElementById('preview');
 
 
-  const words = {
+const words = {
 
-    lat: 44.98,
-    lng: -93.27,
+  lat: 44.98,
+  lng: -93.27,
 
-    name: 'WORDS',
+  name: 'WORDS',
 
-    color: '#F3C94F',
+  color: '#F3C94F',
 
-    size: 1.35,
+  size: 1.45,
 
-    radius: 0.32
-  };
+  radius: 0.34
+};
 
 
-  const destinations = [words];
+const destinations = [words];
 
 
-  const world = Globe()
-    (document.getElementById('globeViz'))
+const world = Globe()
 
-    .globeImageUrl(
-      'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'
-    )
+(document.getElementById('globeViz'))
 
-    .backgroundColor(
-      'rgba(0,0,0,0)'
-    )
+.globeImageUrl(
+  'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'
+)
 
-    .showAtmosphere(true)
+.backgroundColor(
+  'rgba(0,0,0,0)'
+)
 
-    .atmosphereColor(
-      '#4969A8'
-    )
+.showAtmosphere(true)
 
-    .atmosphereAltitude(
-      0.13
-    )
+.atmosphereColor(
+  '#4969A8'
+)
 
+.atmosphereAltitude(
+  0.13
+)
 
-    /* GOLD NODE */
 
-    .pointsData(
-      destinations
-    )
+/* ---------- DESTINATION NODE ---------- */
 
-    .pointLat(
-      'lat'
-    )
+.pointsData(destinations)
 
-    .pointLng(
-      'lng'
-    )
+.pointLat('lat')
 
-    .pointColor(
-      'color'
-    )
+.pointLng('lng')
 
-    .pointAltitude(
-      0.035
-    )
+.pointColor(
+  d => d.color
+)
 
-    .pointRadius(
-      d => d.radius
-    )
+.pointAltitude(
+  0.035
+)
 
+.pointRadius(
+  d => d.radius
+)
 
-    /* WORDS LABEL */
 
-    .labelsData(
-      destinations
-    )
+/* ---------- WORDS LABEL ---------- */
 
-    .labelLat(
-      'lat'
-    )
+.labelsData(destinations)
 
-    .labelLng(
-      'lng'
-    )
+.labelLat('lat')
 
-    .labelText(
-      'name'
-    )
+.labelLng('lng')
 
-    .labelColor(
-      d => d.color
-    )
+.labelText('name')
 
-    .labelSize(
-      d => d.size
-    )
+.labelColor(
+  d => d.color
+)
 
-    .labelDotRadius(
-      d => d.radius
-    )
+.labelSize(
+  d => d.size
+)
 
-    .labelAltitude(
-      0.055
-    )
+.labelDotRadius(
+  d => d.radius
+)
 
-    .labelResolution(
-      3
-    )
+.labelAltitude(
+  0.055
+)
 
+.labelResolution(
+  3
+)
 
-    /* HOVER */
 
-    .onLabelHover(destination => {
+/* ---------- STABLE HOVER ---------- */
 
-      if (destination) {
+.onLabelHover(destination => {
 
-        words.color =
-          '#FFF1A8';
+  if (destination) {
 
-        words.size =
-          2.0;
+    /*
+      IMPORTANT:
+      We change COLOR only.
 
-        words.radius =
-          0.48;
+      We DO NOT change label size or radius.
+      That keeps the hover target stable
+      and prevents the flickering loop.
+    */
 
-        world.controls()
-          .autoRotateSpeed = 0.05;
+    words.color =
+      '#FFF1A8';
 
-        preview.classList
-          .add('show');
+    world.controls()
+      .autoRotateSpeed = 0.05;
 
-        document.body.style.cursor =
-          'pointer';
+    preview.classList
+      .add('show');
 
-      }
+    document.body.style.cursor =
+      'pointer';
 
-      else {
+  }
 
-        words.color =
-          '#F3C94F';
+  else {
 
-        words.size =
-          1.35;
+    words.color =
+      '#F3C94F';
 
-        words.radius =
-          0.32;
+    world.controls()
+      .autoRotateSpeed = 0.45;
 
-        world.controls()
-          .autoRotateSpeed = 0.45;
+    preview.classList
+      .remove('show');
 
-        preview.classList
-          .remove('show');
+    document.body.style.cursor =
+      'default';
 
-        document.body.style.cursor =
-          'default';
+  }
 
-      }
+  world
+    .labelsData([...destinations])
+    .pointsData([...destinations]);
 
+});
 
-      world
-        .labelsData([...destinations])
-        .pointsData([...destinations]);
 
-    });
+/* ---------- OPENING VIEW ---------- */
 
+world.pointOfView(
 
-  /* OPENING VIEW */
+  {
+    lat: 18,
+    lng: -85,
+    altitude: 1.15
+  },
 
-  world.pointOfView(
+  1000
 
-    {
-      lat: 18,
-      lng: -85,
-      altitude: 1.15
-    },
+);
 
-    1000
 
-  );
+/* ---------- MOVEMENT ---------- */
 
+world.controls()
+  .autoRotate = true;
 
-  /* KEEP THE VERSE MOVING */
+world.controls()
+  .autoRotateSpeed = 0.45;
 
-  world.controls()
-    .autoRotate = true;
+world.controls()
+  .enableDamping = true;
 
-  world.controls()
-    .autoRotateSpeed = 0.45;
+world.controls()
+  .dampingFactor = 0.08;
 
-  world.controls()
-    .enableDamping = true;
+world.controls()
+  .minDistance = 105;
 
-  world.controls()
-    .dampingFactor = 0.08;
-
-  world.controls()
-    .minDistance = 105;
-
-  world.controls()
-    .maxDistance = 400;
+world.controls()
+  .maxDistance = 400;
 
 </script>
 
