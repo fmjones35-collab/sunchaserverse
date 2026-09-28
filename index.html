@@ -130,12 +130,11 @@ html, body {
 
 
 /* =========================
-   DESTINATION BUTTON
+   DESTINATION BUTTONS
    ========================= */
 
 .destination {
   transform: translate(-50%, -50%);
-
   cursor: pointer;
   user-select: none;
   pointer-events: auto;
@@ -150,11 +149,9 @@ html, body {
 
   border-radius: 20px;
 
-  background:
-    rgba(5,8,24,.72);
+  background: rgba(5,8,24,.72);
 
-  border:
-    1px solid rgba(243,201,79,.55);
+  border: 1px solid rgba(243,201,79,.55);
 
   text-shadow:
     0 0 7px rgba(255,225,125,.9);
@@ -174,8 +171,7 @@ html, body {
 
   border-color: #FFF1A8;
 
-  background:
-    rgba(20,17,36,.90);
+  background: rgba(20,17,36,.90);
 
   box-shadow:
     0 0 10px rgba(255,241,168,.55),
@@ -200,10 +196,10 @@ html, body {
 #preview {
   position: absolute;
 
-  right: 7%;
-  bottom: 10%;
+  right: 6%;
+  top: 50%;
 
-  width: 270px;
+  width: 285px;
 
   padding: 22px;
 
@@ -227,8 +223,7 @@ html, body {
   opacity: 0;
   visibility: hidden;
 
-  transform:
-    translateY(12px);
+  transform: translateY(-50%) translateX(12px);
 
   transition:
     opacity .3s ease,
@@ -244,8 +239,7 @@ html, body {
   opacity: 1;
   visibility: visible;
 
-  transform:
-    translateY(0);
+  transform: translateY(-50%) translateX(0);
 
   pointer-events: auto;
 }
@@ -254,7 +248,6 @@ html, body {
   color: #F7D86B;
 
   font-size: 10px;
-
   letter-spacing: 3px;
 
   margin-bottom: 8px;
@@ -266,7 +259,6 @@ html, body {
   color: #FFF5CF;
 
   font-size: 25px;
-
   letter-spacing: 1px;
 }
 
@@ -276,7 +268,6 @@ html, body {
   color: #E6E7EF;
 
   font-size: 13px;
-
   line-height: 1.5;
 }
 
@@ -291,7 +282,6 @@ html, body {
   color: #F7D86B;
 
   font-size: 11px;
-
   letter-spacing: 2px;
 
   font-weight: bold;
@@ -322,26 +312,22 @@ html, body {
   #preview {
     left: 50%;
     right: auto;
-
+    top: auto;
     bottom: 5%;
 
     width: 86%;
     max-width: 320px;
 
-    transform:
-      translate(-50%, 12px);
+    transform: translate(-50%, 12px);
   }
 
   #preview.show {
-    transform:
-      translate(-50%, 0);
+    transform: translate(-50%, 0);
   }
 
   .destination {
     font-size: 13px;
-
-    padding:
-      8px 10px;
+    padding: 8px 10px;
   }
 }
 
@@ -356,9 +342,7 @@ html, body {
 <div id="stage">
 
   <div id="sunGlow"></div>
-
   <div id="sunFlare"></div>
-
   <div id="sunCore"></div>
 
   <div id="globeViz"></div>
@@ -368,20 +352,24 @@ html, body {
 
   <div id="preview">
 
-    <div class="eyebrow">
+    <div
+      class="eyebrow"
+      id="previewEyebrow"
+    >
       DISCOVER
     </div>
 
-    <h2>
+    <h2 id="previewTitle">
       WORDS
     </h2>
 
-    <p>
+    <p id="previewDescription">
       Thoughts. Stories. Sunchaslations.
     </p>
 
     <a
       class="enter"
+      id="previewLink"
       href="https://sunchaserunlimited.wixsite.com/my-site-1/words"
     >
       ENTER THE VERSE →
@@ -395,11 +383,20 @@ html, body {
 <script>
 
 /* =========================
-   CARD
+   CARD ELEMENTS
    ========================= */
 
 const preview =
   document.getElementById('preview');
+
+const previewTitle =
+  document.getElementById('previewTitle');
+
+const previewDescription =
+  document.getElementById('previewDescription');
+
+const previewLink =
+  document.getElementById('previewLink');
 
 
 /* =========================
@@ -411,7 +408,21 @@ const destinations = [
   {
     lat: 44.98,
     lng: -93.27,
-    name: 'WORDS'
+    name: 'WORDS',
+    description:
+      'Thoughts. Stories. Sunchaslations.',
+    url:
+      'https://sunchaserunlimited.wixsite.com/my-site-1/words'
+  },
+
+  {
+    lat: 33.75,
+    lng: -84.39,
+    name: 'CREATIONS',
+    description:
+      'Original pieces from Sunchaser Unlimited.',
+    url:
+      'https://sunchaserunlimited.wixsite.com/my-site-1/creations'
   }
 
 ];
@@ -445,7 +456,7 @@ const world = Globe()
 
 
 /* =========================
-   HTML DESTINATION
+   HTML DESTINATIONS
    ========================= */
 
 world
@@ -471,10 +482,8 @@ world
   const button =
     document.createElement('div');
 
-
   button.className =
     'destination';
-
 
   button.textContent =
     destination.name;
@@ -515,7 +524,7 @@ world
 
 
   /* -------------------------
-     CLICK WORDS
+     CLICK DESTINATION
      ------------------------- */
 
   button.addEventListener(
@@ -526,12 +535,41 @@ world
 
 
       /*
-        SELECT WORDS
+        REMOVE PREVIOUS SELECTION
+      */
+
+      document
+        .querySelectorAll('.destination')
+        .forEach(item => {
+
+          item.classList.remove(
+            'selected'
+          );
+
+        });
+
+
+      /*
+        SELECT CURRENT DESTINATION
       */
 
       button.classList.add(
         'selected'
       );
+
+
+      /*
+        UPDATE DISCOVERY CARD
+      */
+
+      previewTitle.textContent =
+        destination.name;
+
+      previewDescription.textContent =
+        destination.description;
+
+      previewLink.href =
+        destination.url;
 
 
       /*
@@ -583,22 +621,17 @@ world.pointOfView(
 world.controls()
   .autoRotate = true;
 
-
 world.controls()
   .autoRotateSpeed = 0.45;
-
 
 world.controls()
   .enableDamping = true;
 
-
 world.controls()
   .dampingFactor = 0.08;
 
-
 world.controls()
   .minDistance = 105;
-
 
 world.controls()
   .maxDistance = 400;
