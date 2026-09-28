@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SunchaserVerse</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #050818;
+      font-family: Arial, sans-serif;
+    }
+
+    #stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 50% 45%,
+          #101936 0%,
+          #080d20 45%,
+          #03050d 100%
+        );
+    }
+
+    /* ---------- THE LIGHT ---------- */
+
+    #sunGlow {
+      position: absolute;
+      width: 430px;
+      height: 280px;
+      left: 55%;
+      top: 25%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255,188,72,.36) 0%,
+        rgba(245,157,46,.18) 28%,
+        rgba(230,184,63,.07) 50%,
+        rgba(230,184,63,0) 72%
+      );
+
+      filter: blur(30px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #sunCore {
+      position: absolute;
+      width: 105px;
+      height: 105px;
+      left: 55%;
+      top: 25%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+
+      background: radial-gradient(
+        circle,
+        rgba(255,255,245,1) 0%,
+        rgba(255,244,188,.98) 15%,
+        rgba(255,196,76,.78) 35%,
+        rgba(255,155,45,.32) 58%,
+        rgba(255,155,45,0) 78%
+      );
+
+      filter: blur(8px);
+
+      box-shadow:
+        0 0 28px rgba(255,235,165,.60),
+        0 0 65px rgba(255,176,55,.30);
+
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #sunFlare {
+      position: absolute;
+      width: 330px;
+      height: 18px;
+      left: 55%;
+      top: 25%;
+      transform: translate(-50%, -50%);
+
+      background: linear-gradient(
+        90deg,
+        rgba(255,184,65,0),
+        rgba(255,205,100,.16),
+        rgba(255,245,205,.62),
+        rgba(255,205,100,.16),
+        rgba(255,184,65,0)
+      );
+
+      filter: blur(9px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---------- GLOBE ---------- */
+
+    #globeViz {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    canvas {
+      cursor: grab;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    /* ---------- DESTINATION CARD ---------- */
+
+    #preview {
+      position: absolute;
+      right: 7%;
+      bottom: 10%;
+
+      width: 270px;
+      padding: 22px;
+
+      border: 1px solid rgba(247,216,107,.55);
+      border-radius: 14px;
+
+      background: linear-gradient(
+        135deg,
+        rgba(9,16,40,.95),
+        rgba(28,18,48,.94)
+      );
+
+      box-shadow:
+        0 0 28px rgba(243,201,79,.20);
+
+      color: white;
+
+      opacity: 0;
+      transform: translateY(12px);
+
+      transition:
+        opacity .35s ease,
+        transform .35s ease;
+
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    #preview.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    #preview .eyebrow {
+      color: #F7D86B;
+      font-size: 10px;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+    }
+
+    #preview h2 {
+      margin: 0 0 8px;
+      color: #FFF5CF;
+      font-size: 25px;
+      letter-spacing: 1px;
+    }
+
+    #preview p {
+      margin: 0 0 16px;
+      color: #E6E7EF;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    #preview a {
+      color: #F7D86B;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    #preview a:hover {
+      color: #FFF5CF;
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media (max-width: 700px) {
+      #preview {
+        left: 50%;
+        right: auto;
+        bottom: 5%;
+        width: 86%;
+        max-width: 320px;
+        transform: translate(-50%, 12px);
+      }
+
+      #preview.show {
+        transform: translate(-50%, 0);
+      }
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
+</head>
+
+<body>
+
+<div id="stage">
+
+  <div id="sunGlow"></div>
+  <div id="sunFlare"></div>
+  <div id="sunCore"></div>
+
+  <div id="globeViz"></div>
+
+  <div id="preview">
+
+    <div class="eyebrow">
+      DISCOVER
+    </div>
+
+    <h2>
+      WORDS
+    </h2>
+
+    <p>
+      Thoughts. Stories. Sunchaslations.
+    </p>
+
+    <a
+      href="https://sunchaserunlimited.wixsite.com/my-site-1#words"
+      target="_top"
+    >
+      ENTER THE WORDS →
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+
+  const preview =
+    document.getElementById('preview');
+
+  const words = {
+    lat: 44.98,
+    lng: -93.27,
+    name: 'WORDS',
+    color: '#F3C94F',
+    size: 1.35,
+    radius: 0.32
+  };
+
+  const destinations = [words];
+
+  const world = Globe()
+    (document.getElementById('globeViz'))
+
+    .globeImageUrl(
+      'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'
+    )
+
+    .backgroundColor('rgba(0,0,0,0)')
+
+    .showAtmosphere(true)
+    .atmosphereColor('#4969A8')
+    .atmosphereAltitude(0.13)
+
+    .pointsData(destinations)
+    .pointLat('lat')
+    .pointLng('lng')
+    .pointColor('color')
+    .pointAltitude(0.035)
+    .pointRadius(d => d.radius)
+
+    .labelsData(destinations)
+    .labelLat('lat')
+    .labelLng('lng')
+    .labelText('name')
+    .labelColor(d => d.color)
+    .labelSize(d => d.size)
+    .labelDotRadius(d => d.radius)
+    .labelAltitude(0.055)
+    .labelResolution(3)
+
+    .onLabelHover(destination => {
+
+      if (destination) {
+
+        words.color = '#FFF1A8';
+        words.size = 2.0;
+        words.radius = 0.48;
+
+        world.controls().autoRotateSpeed = 0.05;
+
+        preview.classList.add('show');
+
+        document.body.style.cursor = 'pointer';
+
+      } else {
+
+        words.color = '#F3C94F';
+        words.size = 1.35;
+        words.radius = 0.32;
+
+        world.controls().autoRotateSpeed = 0.45;
+
+        /*
+          Leave the card visible briefly so the
+          visitor has time to move onto it.
+        */
+
+        setTimeout(() => {
+
+          if (!preview.matches(':hover')) {
+            preview.classList.remove('show');
+          }
+
+        }, 700);
+
+        document.body.style.cursor = 'default';
+      }
+
+      world
+        .labelsData([...destinations])
+        .pointsData([...destinations]);
+
+    });
+
+  /* KEEP CARD OPEN WHILE VISITOR USES IT */
+
+  preview.addEventListener('mouseenter', () => {
+    preview.classList.add('show');
+    world.controls().autoRotateSpeed = 0.05;
+  });
+
+  preview.addEventListener('mouseleave', () => {
+    preview.classList.remove('show');
+    world.controls().autoRotateSpeed = 0.45;
+  });
+
+
+  /* OPENING VIEW */
+
+  world.pointOfView(
+    {
+      lat: 18,
+      lng: -85,
+      altitude: 1.15
+    },
+    1000
+  );
+
+
+  /* MOVEMENT */
+
+  world.controls().autoRotate = true;
+  world.controls().autoRotateSpeed = 0.45;
+
+  world.controls().enableDamping = true;
+  world.controls().dampingFactor = 0.08;
+
+  world.controls().minDistance = 105;
+  world.controls().maxDistance = 400;
+
+</script>
+
+</body>
+</html>
