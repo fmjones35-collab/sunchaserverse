@@ -169,6 +169,7 @@ canvas:active {
 #preview.show {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 #preview .eyebrow {
@@ -356,26 +357,27 @@ const world = Globe()
 )
 
 
-/* ---------- STABLE HOVER ---------- */
+/* ---------- HOVER WORDS ---------- */
 
 .onLabelHover(destination => {
 
   if (destination) {
-
-    /*
-      IMPORTANT:
-      We change COLOR only.
-
-      We DO NOT change label size or radius.
-      That keeps the hover target stable
-      and prevents the flickering loop.
-    */
 
     words.color =
       '#FFF1A8';
 
     world.controls()
       .autoRotateSpeed = 0.05;
+
+    /*
+      OPEN THE CARD.
+
+      IMPORTANT:
+      We DO NOT close it when the mouse
+      leaves WORDS.
+
+      Once discovered, it stays discovered.
+    */
 
     preview.classList
       .add('show');
@@ -393,8 +395,9 @@ const world = Globe()
     world.controls()
       .autoRotateSpeed = 0.45;
 
-    preview.classList
-      .remove('show');
+    /*
+      CARD STAYS OPEN.
+    */
 
     document.body.style.cursor =
       'default';
