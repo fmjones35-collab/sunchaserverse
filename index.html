@@ -165,7 +165,6 @@
     #preview.show {
       opacity: 1;
       transform: translateY(0);
-      pointer-events: auto;
     }
 
     #preview .eyebrow {
@@ -189,21 +188,17 @@
       line-height: 1.5;
     }
 
-    #preview a {
+    #preview .enter {
       color: #F7D86B;
-      text-decoration: none;
       font-size: 11px;
       letter-spacing: 2px;
       font-weight: bold;
     }
 
-    #preview a:hover {
-      color: #FFF5CF;
-    }
-
     /* ---------- MOBILE ---------- */
 
     @media (max-width: 700px) {
+
       #preview {
         left: 50%;
         right: auto;
@@ -217,6 +212,7 @@
         transform: translate(-50%, 0);
       }
     }
+
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
@@ -246,12 +242,9 @@
       Thoughts. Stories. Sunchaslations.
     </p>
 
-    <a
-      href="https://sunchaserunlimited.wixsite.com/my-site-1#words"
-      target="_top"
-    >
-      ENTER THE WORDS →
-    </a>
+    <div class="enter">
+      ENTER THE VERSE →
+    </div>
 
   </div>
 
@@ -262,16 +255,24 @@
   const preview =
     document.getElementById('preview');
 
+
   const words = {
+
     lat: 44.98,
     lng: -93.27,
+
     name: 'WORDS',
+
     color: '#F3C94F',
+
     size: 1.35,
+
     radius: 0.32
   };
 
+
   const destinations = [words];
+
 
   const world = Globe()
     (document.getElementById('globeViz'))
@@ -280,66 +281,135 @@
       'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'
     )
 
-    .backgroundColor('rgba(0,0,0,0)')
+    .backgroundColor(
+      'rgba(0,0,0,0)'
+    )
 
     .showAtmosphere(true)
-    .atmosphereColor('#4969A8')
-    .atmosphereAltitude(0.13)
 
-    .pointsData(destinations)
-    .pointLat('lat')
-    .pointLng('lng')
-    .pointColor('color')
-    .pointAltitude(0.035)
-    .pointRadius(d => d.radius)
+    .atmosphereColor(
+      '#4969A8'
+    )
 
-    .labelsData(destinations)
-    .labelLat('lat')
-    .labelLng('lng')
-    .labelText('name')
-    .labelColor(d => d.color)
-    .labelSize(d => d.size)
-    .labelDotRadius(d => d.radius)
-    .labelAltitude(0.055)
-    .labelResolution(3)
+    .atmosphereAltitude(
+      0.13
+    )
+
+
+    /* GOLD NODE */
+
+    .pointsData(
+      destinations
+    )
+
+    .pointLat(
+      'lat'
+    )
+
+    .pointLng(
+      'lng'
+    )
+
+    .pointColor(
+      'color'
+    )
+
+    .pointAltitude(
+      0.035
+    )
+
+    .pointRadius(
+      d => d.radius
+    )
+
+
+    /* WORDS LABEL */
+
+    .labelsData(
+      destinations
+    )
+
+    .labelLat(
+      'lat'
+    )
+
+    .labelLng(
+      'lng'
+    )
+
+    .labelText(
+      'name'
+    )
+
+    .labelColor(
+      d => d.color
+    )
+
+    .labelSize(
+      d => d.size
+    )
+
+    .labelDotRadius(
+      d => d.radius
+    )
+
+    .labelAltitude(
+      0.055
+    )
+
+    .labelResolution(
+      3
+    )
+
+
+    /* HOVER */
 
     .onLabelHover(destination => {
 
       if (destination) {
 
-        words.color = '#FFF1A8';
-        words.size = 2.0;
-        words.radius = 0.48;
+        words.color =
+          '#FFF1A8';
 
-        world.controls().autoRotateSpeed = 0.05;
+        words.size =
+          2.0;
 
-        preview.classList.add('show');
+        words.radius =
+          0.48;
 
-        document.body.style.cursor = 'pointer';
+        world.controls()
+          .autoRotateSpeed = 0.05;
 
-      } else {
+        preview.classList
+          .add('show');
 
-        words.color = '#F3C94F';
-        words.size = 1.35;
-        words.radius = 0.32;
+        document.body.style.cursor =
+          'pointer';
 
-        world.controls().autoRotateSpeed = 0.45;
-
-        /*
-          Leave the card visible briefly so the
-          visitor has time to move onto it.
-        */
-
-        setTimeout(() => {
-
-          if (!preview.matches(':hover')) {
-            preview.classList.remove('show');
-          }
-
-        }, 700);
-
-        document.body.style.cursor = 'default';
       }
+
+      else {
+
+        words.color =
+          '#F3C94F';
+
+        words.size =
+          1.35;
+
+        words.radius =
+          0.32;
+
+        world.controls()
+          .autoRotateSpeed = 0.45;
+
+        preview.classList
+          .remove('show');
+
+        document.body.style.cursor =
+          'default';
+
+      }
+
 
       world
         .labelsData([...destinations])
@@ -347,41 +417,41 @@
 
     });
 
-  /* KEEP CARD OPEN WHILE VISITOR USES IT */
-
-  preview.addEventListener('mouseenter', () => {
-    preview.classList.add('show');
-    world.controls().autoRotateSpeed = 0.05;
-  });
-
-  preview.addEventListener('mouseleave', () => {
-    preview.classList.remove('show');
-    world.controls().autoRotateSpeed = 0.45;
-  });
-
 
   /* OPENING VIEW */
 
   world.pointOfView(
+
     {
       lat: 18,
       lng: -85,
       altitude: 1.15
     },
+
     1000
+
   );
 
 
-  /* MOVEMENT */
+  /* KEEP THE VERSE MOVING */
 
-  world.controls().autoRotate = true;
-  world.controls().autoRotateSpeed = 0.45;
+  world.controls()
+    .autoRotate = true;
 
-  world.controls().enableDamping = true;
-  world.controls().dampingFactor = 0.08;
+  world.controls()
+    .autoRotateSpeed = 0.45;
 
-  world.controls().minDistance = 105;
-  world.controls().maxDistance = 400;
+  world.controls()
+    .enableDamping = true;
+
+  world.controls()
+    .dampingFactor = 0.08;
+
+  world.controls()
+    .minDistance = 105;
+
+  world.controls()
+    .maxDistance = 400;
 
 </script>
 
