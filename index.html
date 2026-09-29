@@ -146,7 +146,6 @@ html, body {
   letter-spacing: 2px;
 
   padding: 9px 12px;
-
   border-radius: 20px;
 
   background: rgba(5,8,24,.72);
@@ -168,7 +167,6 @@ html, body {
 
 .destination:hover {
   color: #FFF1A8;
-
   border-color: #FFF1A8;
 
   background: rgba(20,17,36,.90);
@@ -180,7 +178,6 @@ html, body {
 
 .destination.selected {
   color: #FFF1A8;
-
   border-color: #FFF1A8;
 
   box-shadow:
@@ -200,7 +197,6 @@ html, body {
   top: 50%;
 
   width: 285px;
-
   padding: 22px;
 
   border:
@@ -223,7 +219,9 @@ html, body {
   opacity: 0;
   visibility: hidden;
 
-  transform: translateY(-50%) translateX(12px);
+  transform:
+    translateY(-50%)
+    translateX(12px);
 
   transition:
     opacity .3s ease,
@@ -231,7 +229,6 @@ html, body {
     visibility .3s ease;
 
   pointer-events: none;
-
   z-index: 10;
 }
 
@@ -239,17 +236,17 @@ html, body {
   opacity: 1;
   visibility: visible;
 
-  transform: translateY(-50%) translateX(0);
+  transform:
+    translateY(-50%)
+    translateX(0);
 
   pointer-events: auto;
 }
 
 #preview .eyebrow {
   color: #F7D86B;
-
   font-size: 10px;
   letter-spacing: 3px;
-
   margin-bottom: 8px;
 }
 
@@ -273,7 +270,7 @@ html, body {
 
 
 /* =========================
-   ENTER THE VERSE LINK
+   ENTER THE VERSE
    ========================= */
 
 #preview .enter {
@@ -283,11 +280,9 @@ html, body {
 
   font-size: 11px;
   letter-spacing: 2px;
-
   font-weight: bold;
 
   text-decoration: none;
-
   cursor: pointer;
 
   transition:
@@ -318,11 +313,13 @@ html, body {
     width: 86%;
     max-width: 320px;
 
-    transform: translate(-50%, 12px);
+    transform:
+      translate(-50%, 12px);
   }
 
   #preview.show {
-    transform: translate(-50%, 0);
+    transform:
+      translate(-50%, 0);
   }
 
   .destination {
@@ -409,8 +406,10 @@ const destinations = [
     lat: 44.98,
     lng: -93.27,
     name: 'WORDS',
+
     description:
       'Thoughts. Stories. Sunchaslations.',
+
     url:
       'https://sunchaserunlimited.wixsite.com/my-site-1/words'
   },
@@ -419,10 +418,24 @@ const destinations = [
     lat: 33.75,
     lng: -84.39,
     name: 'CREATIONS',
+
     description:
       'Original pieces from Sunchaser Unlimited.',
+
     url:
       'https://sunchaserunlimited.wixsite.com/my-site-1/Creations'
+  },
+
+  {
+    lat: 25.76,
+    lng: -80.19,
+    name: 'MOVEMENT',
+
+    description:
+      'Strength. Rhythm. Exploration. Forward motion.',
+
+    url:
+      'https://sunchaserunlimited.wixsite.com/my-site-1/wellness'
   }
 
 ];
@@ -489,9 +502,7 @@ world
     destination.name;
 
 
-  /* -------------------------
-     HOVER
-     ------------------------- */
+  /* HOVER */
 
   button.addEventListener(
     'mouseenter',
@@ -523,9 +534,7 @@ world
   );
 
 
-  /* -------------------------
-     CLICK DESTINATION
-     ------------------------- */
+  /* CLICK DESTINATION */
 
   button.addEventListener(
     'click',
@@ -534,9 +543,7 @@ world
       event.stopPropagation();
 
 
-      /*
-        REMOVE PREVIOUS SELECTION
-      */
+      /* REMOVE PREVIOUS SELECTION */
 
       document
         .querySelectorAll('.destination')
@@ -549,18 +556,14 @@ world
         });
 
 
-      /*
-        SELECT CURRENT DESTINATION
-      */
+      /* SELECT CURRENT DESTINATION */
 
       button.classList.add(
         'selected'
       );
 
 
-      /*
-        UPDATE DISCOVERY CARD
-      */
+      /* UPDATE CARD */
 
       previewTitle.textContent =
         destination.name;
@@ -572,18 +575,14 @@ world
         destination.url;
 
 
-      /*
-        OPEN CARD
-      */
+      /* OPEN CARD */
 
       preview.classList.add(
         'show'
       );
 
 
-      /*
-        SLOW WORLD
-      */
+      /* SLOW WORLD */
 
       world.controls()
         .autoRotateSpeed = 0.05;
