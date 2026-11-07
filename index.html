@@ -386,6 +386,38 @@ html, body {
 }
 }
 
+
+/* SUNCHASER CREATIVE ZONE — mystery message */
+.sunshineSignature {margin-top:20px;color:#e8c77a;font:italic 13px Georgia,serif;letter-spacing:.5px}
+#sunshineTrigger {position:absolute;left:50%;top:77%;transform:translateX(-50%);white-space:nowrap;z-index:25;border:1px solid #e8c77a;border-radius:24px;background:rgba(16,28,50,.94);color:#f1e8d8;padding:13px 18px;font-weight:bold;letter-spacing:1px;cursor:pointer;box-shadow:0 0 24px rgba(232,199,122,.3);font-size:13px}
+#sunshineTrigger:hover,#sunshineTrigger:focus-visible {background:#203651;box-shadow:0 0 30px rgba(232,199,122,.6)}
+#sunshineOverlay {position:fixed;inset:0;z-index:100;background:rgba(3,5,13,.78);display:none;align-items:center;justify-content:center;padding:20px}
+#sunshineOverlay.open {display:flex}
+#sunshinePanel {position:relative;width:min(440px,100%);padding:36px 26px;text-align:center;border:1px solid #e8c77a;border-radius:22px;background:linear-gradient(145deg,#101c32,#203651);color:#f1e8d8;box-shadow:0 0 55px rgba(232,199,122,.23)}
+#sunshinePanel .eyebrow {font-size:11px;letter-spacing:3px;color:#e8c77a}
+#sunshinePanel h2 {font:normal 30px Georgia,serif;margin:14px 0;color:#fff6df}
+#sunshinePanel p {font:normal 18px/1.6 Georgia,serif;min-height:88px}
+#sunshineEnvelope {font-size:54px;margin:14px auto;display:block}
+#sunshineReveal,#sunshineClose {cursor:pointer;border:1px solid #e8c77a;border-radius:24px;padding:12px 20px;background:#e8c77a;color:#101c32;font-weight:bold}
+#sunshineClose {position:absolute;top:12px;right:12px;border:0;background:transparent;color:#f1e8d8;font-size:23px;padding:3px 10px}
+@media(max-width:700px){#sunshineTrigger{left:50%;top:78%;transform:translateX(-50%);padding:10px 12px;font-size:11px}#sunshinePanel{padding:32px 18px}#sunshinePanel h2{font-size:25px}}
+
+/* SUNCHASER SIGNATURE — refined, grown-up sun motif */
+#sunshineTrigger {display:flex;align-items:center;justify-content:center;gap:12px;top:72%;padding:18px 28px;font-size:17px;letter-spacing:2px;border-radius:40px;border-width:1.5px;background:linear-gradient(120deg,rgba(16,28,50,.97),rgba(32,54,81,.96));box-shadow:0 0 22px rgba(232,199,122,.32),inset 0 0 20px rgba(232,199,122,.06)}
+#sunshineTrigger .triggerSun {font-size:27px;color:#e8c77a;line-height:1;text-shadow:0 0 14px rgba(232,199,122,.55)}
+#sunshinePanel {width:min(650px,calc(100vw - 36px));min-height:460px;padding:46px 52px 42px;border-radius:26px;border:1.5px solid rgba(232,199,122,.8);background:radial-gradient(ellipse at 50% 3%,rgba(232,199,122,.13),transparent 48%),linear-gradient(145deg,#101c32,#203651 70%,#101c32);box-shadow:0 0 75px rgba(232,199,122,.23),inset 0 0 50px rgba(232,199,122,.035)}
+#sunshinePanel:before,#sunshinePanel:after {content:'✦';position:absolute;color:#e8c77a;font-size:16px;opacity:.65;top:35px}
+#sunshinePanel:before {left:32px}#sunshinePanel:after {right:55px}
+#sunshinePanel .eyebrow {font-size:12px;letter-spacing:3.5px}
+#sunshinePanel h2 {font-size:37px;margin:10px 0 16px}
+#sunshinePanel p {font-size:22px;line-height:1.65;min-height:95px;max-width:520px;margin:10px auto 25px}
+.sunOrnament {margin:18px auto 0;filter:drop-shadow(0 0 12px rgba(232,199,122,.23));height:104px}
+#sunshineEnvelope {display:none}
+#sunshineReveal {padding:15px 27px;font-size:13px;letter-spacing:1.1px}
+.sunshineSignature {font-size:15px}
+@media(max-width:700px){#sunshineTrigger{top:70%;padding:13px 17px;font-size:12px;letter-spacing:1px;gap:8px}#sunshineTrigger .triggerSun{font-size:20px}#sunshinePanel{min-height:410px;padding:35px 23px 30px}#sunshinePanel h2{font-size:29px}#sunshinePanel p{font-size:18px;min-height:85px}.sunOrnament{margin-top:12px}#sunshinePanel:before{left:18px}#sunshinePanel:after{right:48px}}
+@media(max-height:600px){#sunshineOverlay{align-items:flex-start;overflow-y:auto}#sunshinePanel{min-height:0;margin:auto}#sunshineTrigger{top:68%}}
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
@@ -412,6 +444,21 @@ html, body {
     GO HOME
   </a>
 
+
+
+  <!-- CREATIVE ZONE: INTERACTIVE MESSAGE -->
+  <button id="sunshineTrigger" type="button"><span class="triggerSun" aria-hidden="true">☀</span><span>A LITTLE SUNSHINE</span></button>
+  <div id="sunshineOverlay" role="dialog" aria-modal="true" aria-labelledby="sunshineTitle" aria-hidden="true">
+    <div id="sunshinePanel">
+      <button id="sunshineClose" type="button" aria-label="Close message">×</button>
+      <div class="eyebrow">SUNCHASER'S CREATIVE ZONE</div>
+      <div class="sunOrnament" aria-hidden="true"><svg viewBox="0 0 120 120" width="100" height="100"><defs><radialGradient id="sunG"><stop offset="0" stop-color="#fff9e6"/><stop offset=".5" stop-color="#f6d88d"/><stop offset="1" stop-color="#d7a44b"/></radialGradient></defs><g stroke="#e8c77a" stroke-width="1.7" stroke-linecap="round"><path d="M60 6v18M60 96v18M6 60h18M96 60h18M22 22l13 13M85 85l13 13M98 22L85 35M35 85L22 98"/><path d="M41 12l7 15M72 93l7 15M12 41l15 7M93 72l15 7M79 12l-7 15M48 93l-7 15M108 41l-15 7M27 72l-15 7" opacity=".65"/></g><circle cx="60" cy="60" r="29" fill="url(#sunG)" opacity=".96"/><circle cx="60" cy="60" r="35" fill="none" stroke="#e8c77a" stroke-opacity=".35"/></svg></div><span id="sunshineEnvelope" aria-hidden="true">✉</span>
+      <h2 id="sunshineTitle">A message is waiting...</h2>
+      <p id="sunshineMessage">You won't know what's inside until you open it.</p>
+      <button id="sunshineReveal" type="button">OPEN YOUR MYSTERY MESSAGE</button>
+      <div class="sunshineSignature">— Sunchaser Unlimited</div>
+    </div>
+  </div>
 
   <!-- DISCOVERY CARD -->
 
@@ -482,29 +529,7 @@ const destinations = [
       'https://sunchaserunlimited.wixsite.com/my-site-1/words'
   },
 
-  {
-    lat: 33.75,
-    lng: -84.39,
-    name: 'CREATIONS',
 
-    description:
-      'Original pieces from Sunchaser Unlimited.',
-
-    url:
-      'https://sunchaserunlimited.wixsite.com/my-site-1/Creations'
-  },
-
-  {
-    lat: 25.76,
-    lng: -80.19,
-    name: 'MOVEMENT',
-
-    description:
-      'Strength. Rhythm. Exploration. Forward motion.',
-
-    url:
-      'https://sunchaserunlimited.wixsite.com/my-site-1/wellness'
-  },
 
   {
     lat: 40.71,
@@ -726,6 +751,68 @@ world.controls()
 world.controls()
   .maxDistance = 400;
 
+</script>
+
+
+<script>
+/* Creative Zone — mystery envelope interaction */
+(() => {
+  const trigger = document.getElementById('sunshineTrigger');
+  const overlay = document.getElementById('sunshineOverlay');
+  const close = document.getElementById('sunshineClose');
+  const reveal = document.getElementById('sunshineReveal');
+  const message = document.getElementById('sunshineMessage');
+  const title = document.getElementById('sunshineTitle');
+  const envelope = document.getElementById('sunshineEnvelope');
+  const messages = [
+    ['A LITTLE SUNSHINE ☀️', "Somewhere between where you've been and where you're going, there's a beautiful little place called RIGHT NOW. Enjoy it."],
+    ['A LITTLE MISCHIEF 🤭', 'I had one little idea. ONE. Now look at all these tabs I have open! Somebody come get this imagination!'],
+    ['A LITTLE WISDOM 🌿', 'Not everything needs an answer today. Some things just need a little room to become.'],
+    ['A LITTLE WONDER ✨', "What if the most beautiful thing about tomorrow is something you haven't even imagined yet?"],
+    ['A LITTLE COURAGE 🌻', "You don't have to know the whole journey to enjoy discovering where the next step leads."],
+    ['A LITTLE SUNCHASER MAGIC 🌍', 'The world is full of ordinary moments waiting for somebody curious enough to see the extraordinary.']
+  ];
+  let remaining = [];
+  let previousIndex = -1;
+  function nextMessageIndex() {
+    if (!remaining.length) {
+      remaining = messages.map((_, index) => index);
+      if (remaining.length > 1 && previousIndex !== -1) {
+        remaining = remaining.filter(index => index !== previousIndex).concat(previousIndex);
+      }
+    }
+    const limit = remaining.length > 1 && remaining.includes(previousIndex) ? remaining.length - 1 : remaining.length;
+    const pick = Math.floor(Math.random() * limit);
+    const next = remaining.splice(pick, 1)[0];
+    previousIndex = next;
+    return next;
+  }
+  function openMessage() {
+    title.textContent = 'A message is waiting...';
+    message.textContent = "You won't know what's inside until you open it.";
+    envelope.textContent = '✉';
+    reveal.textContent = 'OPEN YOUR MYSTERY MESSAGE';
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    close.focus();
+  }
+  function closeMessage() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    trigger.focus();
+  }
+  trigger.addEventListener('click', openMessage);
+  close.addEventListener('click', closeMessage);
+  overlay.addEventListener('click', event => { if (event.target === overlay) closeMessage(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && overlay.classList.contains('open')) closeMessage(); });
+  reveal.addEventListener('click', () => {
+    const next = nextMessageIndex();
+    title.textContent = messages[next][0];
+    message.textContent = messages[next][1];
+    envelope.textContent = '✉';
+    reveal.textContent = 'UNCOVER ANOTHER MESSAGE';
+  });
+})();
 </script>
 
 </body>
